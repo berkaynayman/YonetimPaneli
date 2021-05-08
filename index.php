@@ -1,5 +1,5 @@
 <?php
- error_reporting(0);
+ //error_reporting(0);
 @session_start(); 
 @ob_start();                // yönlendirme ve bazı header işlemlerini kullanmak için
 define("DATA","data/");     // define komutu kullanarak sabit değişken tanımşamış oluyoruz
@@ -177,6 +177,32 @@ define("SITE",$siteURL);
     // Summernote
     $('#summernote').summernote()
   })
+  function aktifpasif(ID,tablo){
+    var durum=0;
+    if($(".aktifpasif"+ID).is(':checked'))
+    {
+      durum=1;
+    }
+    else
+    {
+      durum=2;
+    }
+    $.ajax({
+      method:"POST",
+      url:"<?=SITE?>ajax.php",
+      data:{"tablo":tablo,"ID":ID,"durum":durum},
+      success: function()
+      {
+        if(sonuc=="TAMAM")
+        {
+        }
+        else
+        {
+          alert("İşleminiz şuan geçersizdir ltfen daha sonra tekrar dene");
+        }
+      }
+    });
+  }
 </script>
 </body>
 </html>
